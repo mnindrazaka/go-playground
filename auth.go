@@ -34,7 +34,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var userResult User
-	result := db.Table("users").Where("username = ? AND password = ?", userBody.Username, userBody.Password).First(&userResult)
+	result := DB.Table("users").Where("username = ? AND password = ?", userBody.Username, userBody.Password).First(&userResult)
 	if result.Error != nil {
 		w.Write([]byte("wrong username or password"))
 		return
@@ -89,7 +89,7 @@ func CheckLogin(next http.HandlerFunc) http.HandlerFunc {
 
 func GetUserList(w http.ResponseWriter, r *http.Request) {
 	var users []User
-	result := db.Table("users").Preload("Posts").Find(&users)
+	result := DB.Table("users").Preload("Posts").Find(&users)
 	if result.Error != nil {
 		w.Write([]byte(result.Error.Error()))
 		return

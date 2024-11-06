@@ -35,7 +35,7 @@ func UpdatePost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	result := db.Table("posts").Where("id = ?", id).Updates(&post)
+	result := DB.Table("posts").Where("id = ?", id).Updates(&post)
 	if result.Error != nil {
 		w.Write([]byte(result.Error.Error()))
 		return

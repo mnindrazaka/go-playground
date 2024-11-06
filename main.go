@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"golang-playground/data/db"
 	"golang-playground/domain/post"
+	"golang-playground/presentation/api"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -22,7 +23,7 @@ func main() {
 
 	productRepository := db.NewProductRepository(DB)
 	productUsecase := post.ProductUsecase{Repository: productRepository}
-	productHandler := post.ProductHandler{Usecase: productUsecase}
+	productHandler := api.ProductHandler{Usecase: productUsecase}
 
 	router := mux.NewRouter()
 

@@ -1,7 +1,8 @@
-package post
+package api
 
 import (
 	"encoding/json"
+	"golang-playground/domain/post"
 	"io/ioutil"
 	"net/http"
 
@@ -9,7 +10,7 @@ import (
 )
 
 type ProductHandler struct {
-	Usecase ProductUsecase
+	Usecase post.ProductUsecase
 }
 
 func (handler ProductHandler) CreatePost(w http.ResponseWriter, r *http.Request) {
@@ -19,7 +20,7 @@ func (handler ProductHandler) CreatePost(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	var post Post
+	var post post.Post
 	err = json.Unmarshal(bodyByte, &post)
 	if err != nil {
 		w.Write([]byte(err.Error()))
