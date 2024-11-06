@@ -16,24 +16,6 @@ type Post struct {
 	User    User
 }
 
-func GetPostList(w http.ResponseWriter, r *http.Request) {
-
-	var posts []Post
-	result := db.Table("posts").Joins("User").Find(&posts)
-	if result.Error != nil {
-		w.Write([]byte(result.Error.Error()))
-		return
-	}
-
-	postsByte, err := json.Marshal(posts)
-	if err != nil {
-		w.Write([]byte(err.Error()))
-		return
-	}
-
-	w.Write(postsByte)
-}
-
 func UpdatePost(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]

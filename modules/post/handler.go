@@ -26,7 +26,7 @@ func (handler ProductHandler) CreatePost(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	err = handler.Usecase.CreatePostUsecase(post)
+	err = handler.Usecase.CreatePost(post)
 
 	if err != nil {
 		w.Write([]byte(err.Error()))
@@ -40,7 +40,7 @@ func (handler ProductHandler) DeletePost(w http.ResponseWriter, r *http.Request)
 	vars := mux.Vars(r)
 	id := vars["id"]
 
-	err := handler.Usecase.DeletePostUsecase(id)
+	err := handler.Usecase.DeletePost(id)
 
 	if err != nil {
 		w.Write([]byte(err.Error()))
@@ -48,4 +48,20 @@ func (handler ProductHandler) DeletePost(w http.ResponseWriter, r *http.Request)
 	}
 
 	w.Write([]byte("Success"))
+}
+
+func (handler ProductHandler) GetPostList(w http.ResponseWriter, r *http.Request) {
+	posts, err := handler.Usecase.GetPostList()
+	if err != nil {
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	postsByte, err := json.Marshal(posts)
+	if err != nil {
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	w.Write(postsByte)
 }

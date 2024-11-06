@@ -27,9 +27,9 @@ func main() {
 
 	router.HandleFunc("/posts/{id}", CheckLogin(UpdatePost)).Methods("PUT")
 
-	router.HandleFunc("/posts/{id}", CheckLogin(productHandler.DeletePostHandler)).Methods("DELETE")
-	router.HandleFunc("/posts", CheckLogin(productHandler.CreatePostHandler)).Methods("POST")
-	router.HandleFunc("/posts", CheckLogin(GetPostList)).Methods("GET")
+	router.HandleFunc("/posts/{id}", CheckLogin(productHandler.CreatePost)).Methods("DELETE")
+	router.HandleFunc("/posts", CheckLogin(productHandler.DeletePost)).Methods("POST")
+	router.HandleFunc("/posts", CheckLogin(productHandler.GetPostList)).Methods("GET")
 	router.HandleFunc("/users", CheckLogin(GetUserList)).Methods("GET")
 	router.HandleFunc("/login", Login).Methods("POST")
 
